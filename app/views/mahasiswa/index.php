@@ -5,29 +5,44 @@
             <?php Flasher::flash(); ?>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <button type="button" class="btn btn-primary mb-3 tombolTambahData" data-bs-toggle="modal" data-bs-target="#formModal">
+                Tambah Data Mahasiswa
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <form action="<?= BASEURL; ?>/mahasiswa/cari" method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Cari Mahasiswa . . " name="keyword" id="keyword" autocomplete="off">
+                    <button class="btn btn-primary" type="submit" id="tombolCari">Cari</button>
+                </div>
+            </form>
+        </div>
+    </div>
     
     <div class="row">
         <div class="col-lg-6">
-            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#formModal">
-                Tambah Data Mahasiswa
-            </button>
-
             <h3>Daftar Mahasiswa</h3>
-
 
             <ul class="list-group">
                 <?php foreach( $data['mhs'] as $mhs) : ?>
-                    <div class="list-group-item">
+                    <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <?= $mhs['nama']; ?>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <a href="<?= BASEURL; ?>/mahasiswa/detail/<?= $mhs['id'] ?>" class="btn btn-primary badge float-right">Detail</a>
+                                <button class="btn btn-success badge float-right tampilModalUbah" data-bs-toggle="modal" data-bs-target="#formModal" data-id="<?= $mhs['id']; ?>">Ubah</button>
                                 <a href="<?= BASEURL; ?>/mahasiswa/hapus/<?= $mhs['id'] ?>" class="btn btn-danger badge float-right" onclick="return confirm('Yakin mau menghapus?');">Hapus</a>
                             </div>
                         </div>
-                    </div>
+                    </li>
                 <?php endforeach; ?>
             </ul>
         </div>
@@ -46,6 +61,7 @@
         
         <form action="<?= BASEURL; ?>/mahasiswa/tambah" method="post">
 
+            <input type="hidden" name="id" id="id">
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama</label>
                 <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan nama anda">
@@ -64,7 +80,7 @@
             <div class="form-group">
                 <label for="jurusan">Jurusan</label>    
                 <select class="form-control" id="jurusan" name="jurusan">
-                    <option selected>Jurusan</option>
+                    <option value="" selected="true" disabled="disabled">- Pilih Jurusan -</option>
                     <option value="Teknik Telekomunikasi">Teknik Telekomunikasi</option>
                     <option value="Teknik Informatika">Teknik Informatika</option>
                     <option value="Teknik Mekatronika">Teknik Mekatronika</option>
